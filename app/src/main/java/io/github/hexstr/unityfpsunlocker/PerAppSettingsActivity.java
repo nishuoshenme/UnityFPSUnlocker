@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsActivity extends AppCompatActivity {
+public class PerAppSettingsActivity extends AppCompatActivity {
     public static SharedPreferences prefs_ = null;
 
     @Override
@@ -15,7 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settings, new SettingsFragment())
+                    .replace(R.id.settings, new PerAppSettingsFragment())
                     .commit();
         }
         prefs_ = Prefs.getSharedPrefs(this);

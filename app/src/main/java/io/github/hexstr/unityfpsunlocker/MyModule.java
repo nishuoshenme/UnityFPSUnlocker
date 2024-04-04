@@ -21,13 +21,19 @@ public class MyModule implements IXposedHookLoadPackage {
     public static native void HelloWorld(int delay, int fps, boolean mod_opcode, float scale);
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException, IOException, NoSuchMethodException {
+    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
+        String package_name = lpparam.packageName;
         XSharedPreferences settings = getPref("fps_prefs");
         if (settings != null) {
             delay = Integer.parseInt(settings.getString("delay", "5"));
             fps = Integer.parseInt(settings.getString("fps", "90"));
             mod_opcode = settings.getBoolean("mod_opcode", true);
             scale = Float.parseFloat(settings.getString("scale", "-1"));
+
+            delay = Integer.parseInt(settings.getString(package_name + "_per_app_delay", String.valueOf(delay)));
+            fps = Integer.parseInt(settings.getString(package_name + "_per_app_fps", String.valueOf(fps)));
+            mod_opcode = settings.getBoolean(package_name + "_per_app_mod_opcode", true);
+            scale = Float.parseFloat(settings.getString(package_name + "_per_app_scale", String.valueOf(scale)));
         }
 
         XposedBridge.log("delay: " + delay + " | fps: " + fps + " | mod_opcode: " + mod_opcode + " | scale: " + scale);

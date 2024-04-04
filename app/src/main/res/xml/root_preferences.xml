@@ -1,23 +1,29 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/setting_header">
 
+        <Preference
+            app:key="per_app_settings"
+            app:summary="Click here to open Per App Settings"
+            app:title="@string/per_app_setting_btn" />
+
         <EditTextPreference
+            android:inputType="number"
             app:key="delay"
             app:title="@string/delay_title"
-            android:inputType="number"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
+            android:inputType="number"
             app:key="fps"
             app:title="@string/fps_title"
-            android:inputType="number"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
+            android:inputType="numberDecimal"
             app:key="scale"
             app:title="@string/scale_title"
-            android:inputType="numberDecimal"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat

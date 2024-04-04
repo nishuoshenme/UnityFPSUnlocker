@@ -5,6 +5,8 @@
     <string name="setting_header">Module Settings</string>
 
     <!-- Messages Preferences -->
+    <string name="package_name_title">package name</string>
+    <string name="per_app_setting_btn">per app settings</string>
     <string name="delay_title">delay</string>
     <string name="fps_title">fps</string>
     <string name="scale_title">scale</string>
