@@ -224,13 +224,16 @@ void MyModule::ForHoudini() {
 
 void MyModule::postAppSpecialize(const AppSpecializeArgs* args) {
     auto path = absl::Substitute("/sdcard/Android/data/$0/files/il2cpp", package_name_);
-    if (has_custom_cfg_ || access(path.c_str(), F_OK) == 0) {
+    if ((has_custom_cfg_ || access(path.c_str(), F_OK) == 0) && current_cfg_.fps_ > 0) {
 #if defined(__ARM_ARCH_7A__) || defined(__aarch64__)
         std::thread([=]() {
             FPSLimiter::Start(current_cfg_);
         }).detach();
 #endif
         ForHoudini();
+    }
+    else {
+        api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
     }
     env->ReleaseStringUTFChars(args->nice_name, package_name_);
 }
