@@ -33,7 +33,7 @@
 
 其中，`global`节点中的配置为:
 
-- `fps` 需要设置的`fps`
+- `fps` 需要设置的`fps`，设置为`0`以禁用
 - `delay` 游戏载入后等待`delay`秒执行
 - `mod_opcode` 是否修改`opcode`，如果你发现游戏会重新锁定fps，可以把这项改为`true`，但由于修改内存，可能会被反作弊检测到
 - `scale` 设置分辨率的倍数，一般保持`1.0`即可，必须为小数。`当前屏幕宽度 * scale x 当前屏幕高度 * scale`
@@ -46,7 +46,7 @@
 - `delay` 同上
 - `scale` 同上
 
-`TargetList.json`修改后可以搜索`json 格式校验`校验是否完整。修改后立即生效（`>=1.8`）。  
+`TargetList.json`修改后可以搜索`json 格式校验`校验是否完整。修改后立即生效（`模块版本>=1.8`）。  
 可以在终端模拟器输入`logcat -s UnityFPSUnlocker`查看输入日志。
 
 ## 分辨率
@@ -66,7 +66,7 @@ https://imgsli.com/MjI3NDQ2/2/3
 
 但是设置的时机需要尽可能早，也就是`delay`尽可能短，否则需要更改`绘图`选项中的任意一项后生效（比如开关一次`抗锯齿`）
 
-当然还有一个更简单的方法，修改`/sdcard/Android/data/com.nexon.bluearchive/files/DeviceOption`，把`Resolution`修改为大于`3`即可，这样会走`default`分支(在函数`GraphicsManager.CoSetScreenResolution()`中)
+如果你不需要超分辨率，可以修改`/sdcard/Android/data/com.nexon.bluearchive/files/DeviceOption`，把`Resolution`修改为大于`3`即可，这样会走`default`分支(在函数`GraphicsManager.CoSetScreenResolution()`中)
 
 - `0`: 1080P
 - `1`: 720P
