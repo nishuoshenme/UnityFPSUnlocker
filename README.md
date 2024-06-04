@@ -10,7 +10,7 @@
 
 ## 使用
 若你的手机没有开启Zygisk，请先开启Zygisk后重启。当上述需求准备完毕后即可刷入`UnityFPSUnlocker`模块。在重启之前，先下载`TargetList.json`放入`/data/local/tmp/TargetList.json`，并修改你的配置。  
-模块会通过判断游戏数据目录是否存在`/sdcard/Android/data/{package_name}/files/il2cpp`来自动加载。
+模块会通过判断游戏数据目录是否存在`/sdcard/Android/data/{包名}/files/il2cpp`来自动加载。
 
 ```
 {
@@ -49,7 +49,7 @@
 - `delay` 同上
 - `scale` 同上
 
-`TargetList.json`修改后可以搜索`json 格式校验`校验是否完整。修改后立即生效（`模块版本>=1.8`）。  
+`TargetList.json`修改后可以搜索`json 格式校验`校验是否完整。修改后立即生效(`模块版本>=1.8`)。  
 可以在终端模拟器输入`logcat -s UnityFPSUnlocker`查看输入日志。
 
 ## 分辨率
