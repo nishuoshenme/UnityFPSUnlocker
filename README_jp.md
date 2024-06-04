@@ -1,7 +1,7 @@
 # UnityFPSUnlocker
 ## インストール条件
-- [Magisk](https://github.com/topjohnwu/Magisk/releases)
-- `Zygisk`の有効化
+- [Magisk](https://github.com/topjohnwu/Magisk/releases) / [KernelSU](https://github.com/tiann/KernelSU/releases) / [APatch](https://github.com/bmax121/APatch/releases)
+- `Zygisk`の有効化 (KernelSU / APatch ユーザーには `Zygisk Next`)
 - `Shamiko`の有効化
 <br>ShamikoはSafetyNetによる対策が入ったゲームに適用する場合に必要になる事があります。(ウマ娘など)
 
