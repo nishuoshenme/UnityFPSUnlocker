@@ -1,7 +1,4 @@
 # UnityFPSUnlocker
-[README_CN](https://github.com/hexstr/UnityFPSUnlocker/blob/zygisk_module/README.md)
-[README_JP](https://github.com/hexstr/UnityFPSUnlocker/blob/zygisk_module/README_jp.md)
-
 ## Installation requirements
 - The device has already installed [Magisk](https://github.com/topjohnwu/Magisk/releases) / [KernelSU](https://github.com/tiann/KernelSU/releases) / [APatch](https://github.com/bmax121/APatch/releases)
 - Enable `Zygisk` (For KernelSU / APatch user, Need install `Zygisk Next`)
