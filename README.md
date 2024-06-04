@@ -1,4 +1,5 @@
 # UnityFPSUnlocker
+[README_EN](https://github.com/hexstr/UnityFPSUnlocker/blob/zygisk_module/README_en.md)
 [README_JP](https://github.com/hexstr/UnityFPSUnlocker/blob/zygisk_module/README_jp.md)
 
 ## 安装需求
