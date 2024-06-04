@@ -7,8 +7,8 @@
 - Enable `Shamiko` for the target game (Shamiko can avoid detected Zygisk injection or SafetyNet in some games)
 
 ## Use now
-If your device does not have Zygisk enabled, please enable Zygisk first and then reboot your device. After the above requirements are prepared, the 'UnityFPSUnlocker' module can be install in. Before rebooting, download `TargetList. json` and place it to `/data/local/tmp/TargetList. json`, and modify configuration by yourself. 
-The module will automatically load by checking if the game data directory contains `/sdcard/Android/data/{package name}/files/il2cpp`.
+If your device does not have Zygisk enabled, please enable Zygisk first and then reboot your device. After the above requirements are prepared, the 'UnityFPSUnlocker' module can be install in. Before rebooting, download `TargetList.json` and place it to `/data/local/tmp/TargetList.json`, and modify configuration by yourself. 
+The module will automatically load by checking if the game data directory contains `/sdcard/Android/data/{package_name}/files/il2cpp`.
 
 ```
 {
