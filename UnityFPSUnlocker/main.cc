@@ -165,18 +165,16 @@ void MyModule::ForHoudini() {
         std::chrono::seconds sleep_duration(current_cfg_.delay_);
         std::this_thread::sleep_for(sleep_duration);
 #ifdef __x86_64__
-#define syslib       "/system/lib64/"
-#define libdir       "/lib/x86_64"
+#define libdir       "/lib64/x86_64"
 #define library_name "arm64-v8a.so"
 #endif
 
 #ifdef __i386__
-#define syslib       "/system/lib/"
-#define libdir       "/lib/x86"
+#define libdir       "/lib64/x86"
 #define library_name "armeabi-v7a.so"
 #endif
 
-        auto vms = Utility::GetVM(syslib "libart.so");
+        auto vms = Utility::GetVM();
         if (!vms.ok()) {
             ERROR("%s", vms.status().message().data());
             return;

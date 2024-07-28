@@ -42,7 +42,7 @@ namespace Utility {
     jobject GetApplication(JNIEnv* env);
     absl::StatusOr<jobject> GetApplicationInfo(JNIEnv* env);
     absl::StatusOr<std::string> GetLibraryPath(JNIEnv* env, jobject application_info);
-    absl::StatusOr<JavaVM*> GetVM(const char* art_lib);
+    absl::StatusOr<JavaVM*> GetVM();
     int ChangeMemPermission(void* p, size_t n, int permission = PROT_READ | PROT_WRITE | PROT_EXEC);
     void NopFunc(unsigned char* ptr);
 }; // namespace Utility

@@ -1,11 +1,15 @@
 #include "config.hh"
 
-#include <absl/status/status.h>
 #include <dlfcn.h>
 #include <jni.h>
+#include <stdint.h>
+#include <sys/system_properties.h>
 
 #include <fstream>
 #include <string>
+
+#include <absl/status/status.h>
+#include <xdl.h>
 
 #include "logger.hh"
 
@@ -97,15 +101,16 @@ namespace Utility {
         }
     }
 
-    absl::StatusOr<JavaVM*> GetVM(const char* art_lib) {
+    absl::StatusOr<JavaVM*> GetVM() {
         // copy from https://github.com/frida/frida-core/blob/main/lib/agent/agent.vala
-        void* art = dlopen(art_lib, RTLD_NOW);
+
+        void* art = xdl_open("libart.so", 0);
         if (!art) {
             return absl::InternalError("Cannot open libart.so.");
         }
 
-        using JNIGetCreatedJavaVMs_t = int (*)(JavaVM * *vmBuf, jsize bufLen, jsize * nVMs);
-        static JNIGetCreatedJavaVMs_t JNIGetCreatedJavaVMsFunc = (JNIGetCreatedJavaVMs_t)dlsym(art, "JNI_GetCreatedJavaVMs");
+        using JNIGetCreatedJavaVMs_t = int (*)(JavaVM** vmBuf, jsize bufLen, jsize* nVMs);
+        static JNIGetCreatedJavaVMs_t JNIGetCreatedJavaVMsFunc = (JNIGetCreatedJavaVMs_t)xdl_sym(art, "JNI_GetCreatedJavaVMs", nullptr);
 
         if (!JNIGetCreatedJavaVMsFunc) {
             return absl::NotFoundError("Cannot get symbol JNIGetCreatedJavaVMsFunc");
@@ -140,10 +145,20 @@ namespace Utility {
         ptr[2] = 0x5F;
         ptr[3] = 0xD6;
 #elif __ARM_ARCH_7A__
-        ptr[0] = 0x1E;
-        ptr[1] = 0xFF;
-        ptr[2] = 0x2F;
-        ptr[3] = 0xE1;
+        if (0x00000001 == (reinterpret_cast<intptr_t>(ptr) & 0x00000001)) {
+            ptr--;
+            ChangeMemPermission(ptr, 4);
+            ptr[0] = 0x70;
+            ptr[1] = 0x47;
+            ptr[2] = 0xAF;
+            ptr[3] = 0xF3;
+        }
+        else {
+            ptr[0] = 0x1E;
+            ptr[1] = 0xFF;
+            ptr[2] = 0x2F;
+            ptr[3] = 0xE1;
+        }
 #elif defined(__i386__) || defined(__x86_64__)
         ptr[0] = 0xC3;
 #endif

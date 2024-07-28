@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-#include <absl/status/status.h>
-
 #include "utility/singleton.hh"
 
 struct Resolution {
@@ -15,7 +13,7 @@ struct Resolution {
 
 class Unity : public Singleton<Unity> {
 public:
-    absl::Status Init(void*);
+    void Init(void*);
 
     Resolution GetSystemExtImpl();
     Resolution GetResolution();

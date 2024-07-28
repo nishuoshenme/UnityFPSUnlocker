@@ -2,7 +2,6 @@
 
 #if defined(__i386__) || defined(__x86_64__)
 
-#include <absl/status/status.h>
 #include <dlfcn.h>
 
 #include "native_bridge_700r36.h"
@@ -64,7 +63,7 @@ absl::StatusOr<void*> Houdini::LoadLibrary(const char* name, int flag) {
             }
             else {
                 auto ptr = reinterpret_cast<android::NativeBridgeCallbacksMaster*>(houdini_itf_);
-                return ptr->loadLibraryExt(name, flag, (void*)houdini_ver_);
+                return ptr->loadLibraryExt(name, flag, (void*)(houdini_ver_ - 1));
             }
         }
         else {
@@ -72,7 +71,7 @@ absl::StatusOr<void*> Houdini::LoadLibrary(const char* name, int flag) {
                 return NativeBridgeLoadLibrary(name, flag);
             }
             else {
-                return NativeBridgeLoadLibraryExt(name, flag, (void*)houdini_ver_);
+                return NativeBridgeLoadLibraryExt(name, flag, (void*)(houdini_ver_ - 1));
             }
         }
     }

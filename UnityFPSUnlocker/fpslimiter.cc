@@ -33,11 +33,7 @@ namespace FPSLimiter {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         if (handle) {
-            auto result = Unity::GetInstance().Init(handle);
-            if (!result.ok()) {
-                ERROR("%s", result.message().data());
-            }
-
+            Unity::GetInstance().Init(handle);
             Unity::GetInstance().SetFrameRate(cfg.fps_, cfg.mod_opcode_);
             Unity::GetInstance().SetResolution(cfg.scale_);
 

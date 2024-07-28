@@ -5,28 +5,28 @@
 #include "utility/config.hh"
 #include "utility/logger.hh"
 
-absl::Status Unity::Init(void* handle) {
+void Unity::Init(void* handle) {
     if ((il2cpp_resolve_icall = (il2cpp_resolve_icall_f)xdl_sym(handle, "il2cpp_resolve_icall", nullptr)) == nullptr) {
-        return absl::NotFoundError("il2cpp_resolve_icall not fount");
+        ERROR("il2cpp_resolve_icall not fount");
     }
 
     if ((set_targetFrameRate = (set_targetFrameRate_f)il2cpp_resolve_icall("UnityEngine.Application::set_targetFrameRate")) == nullptr) {
-        return absl::NotFoundError("set_targetFrameRate not fount");
+        ERROR("set_targetFrameRate not fount");
     }
 
     if ((get_currentResolution = (get_currentResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::get_currentResolution_Injected")) == nullptr) {
-        return absl::NotFoundError("get_currentResolution not fount");
+        ERROR("get_currentResolution not fount");
     }
 
     if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution")) == nullptr) {
-        return absl::NotFoundError("SetResolution not fount");
+        if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution_Injected")) == nullptr) {
+            ERROR("SetResolution not fount");
+        }
     }
 
     if ((GetSystemExtImpl_Internal = (GetSystemExtImpl_t)il2cpp_resolve_icall("UnityEngine.Display::GetSystemExtImpl")) == nullptr) {
-        return absl::NotFoundError("GetSystemExtImpl not fount");
+        ERROR("GetSystemExtImpl not fount");
     }
-
-    return absl::OkStatus();
 }
 
 Resolution Unity::GetSystemExtImpl() {
