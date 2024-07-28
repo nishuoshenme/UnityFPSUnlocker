@@ -37,7 +37,7 @@ include_directories(
 )
 
 # 文件写出位置
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/libs/${ANDROID_ABI})
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/libs/${CMAKE_BUILD_TYPE}/)
 
 # 将源代码添加到此项目的可执行文件。
 aux_source_directory(${PROJECT_SOURCE_DIR}/${LibraryName} program-src)
@@ -67,4 +67,6 @@ find_package(absl REQUIRED)
 target_link_libraries(${LibraryName} absl::status)
 target_link_libraries(${LibraryName} absl::statusor)
 target_link_libraries(${LibraryName} absl::flat_hash_set)
-# TODO: 如有需要，请添加测试并安装目标。
+
+set_target_properties(${LibraryName} PROPERTIES PREFIX "")
+set_target_properties(${LibraryName} PROPERTIES OUTPUT_NAME ${ANDROID_ABI})
