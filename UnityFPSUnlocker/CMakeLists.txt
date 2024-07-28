@@ -67,5 +67,4 @@ find_package(absl REQUIRED)
 target_link_libraries(${LibraryName} absl::status)
 target_link_libraries(${LibraryName} absl::statusor)
 target_link_libraries(${LibraryName} absl::flat_hash_set)
-target_link_libraries(${LibraryName} ${PROJECT_SOURCE_DIR}/${LibraryName}/third/Dobby/${ANDROID_ABI}/libdobby.a)
 # TODO: 如有需要，请添加测试并安装目标。
