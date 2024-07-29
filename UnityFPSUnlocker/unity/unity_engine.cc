@@ -7,25 +7,25 @@
 
 void Unity::Init(void* handle) {
     if ((il2cpp_resolve_icall = (il2cpp_resolve_icall_f)xdl_sym(handle, "il2cpp_resolve_icall", nullptr)) == nullptr) {
-        ERROR("il2cpp_resolve_icall not fount");
+        ERROR("il2cpp_resolve_icall not found");
     }
 
     if ((set_targetFrameRate = (set_targetFrameRate_f)il2cpp_resolve_icall("UnityEngine.Application::set_targetFrameRate")) == nullptr) {
-        ERROR("set_targetFrameRate not fount");
+        ERROR("set_targetFrameRate not found");
     }
 
     if ((get_currentResolution = (get_currentResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::get_currentResolution_Injected")) == nullptr) {
-        ERROR("get_currentResolution not fount");
+        ERROR("get_currentResolution not found");
     }
 
     if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution")) == nullptr) {
         if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution_Injected")) == nullptr) {
-            ERROR("SetResolution not fount");
+            ERROR("SetResolution not found");
         }
     }
 
     if ((GetSystemExtImpl_Internal = (GetSystemExtImpl_t)il2cpp_resolve_icall("UnityEngine.Display::GetSystemExtImpl")) == nullptr) {
-        ERROR("GetSystemExtImpl not fount");
+        ERROR("GetSystemExtImpl not found");
     }
 }
 
@@ -50,8 +50,9 @@ void Unity::SetResolution(float scale) {
     if (SetResolution_Internal && scale > 0 && resolution.m_Width > 0) {
         auto target_width = static_cast<int32_t>(resolution.m_Width * scale);
         auto target_height = static_cast<int32_t>(resolution.m_Height * scale);
+        int preferred_refresh_rate = 0;
         LOG("Set resolution: %d x %d", target_width, target_height);
-        SetResolution_Internal(target_width, target_height, 1, 0);
+        SetResolution_Internal(target_width, target_height, 1, &preferred_refresh_rate);
         Utility::NopFunc(reinterpret_cast<unsigned char*>(SetResolution_Internal));
     }
 }

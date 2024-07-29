@@ -23,7 +23,7 @@ public:
 private:
     using il2cpp_resolve_icall_f = void* (*)(const char*);
     using set_targetFrameRate_f = void (*)(int);
-    using SetResolution_t = void (*)(int, int, int, int);
+    using SetResolution_t = void (*)(int, int, int, void*);
     using get_currentResolution_t = void (*)(Resolution*);
     using GetSystemExtImpl_t = void (*)(void*, int*, int*);
 
