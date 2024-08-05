@@ -29,7 +29,6 @@ static ConfigValue global_cfg;
 static FileWatch::Listener* file_watch_listener = nullptr;
 
 constexpr const char* ConfigFile = "/data/local/tmp/TargetList.json";
-constexpr const char* ErrorFile = "/data/local/tmp/gh@hexstr/error.log";
 
 absl::Status LoadConfig() {
     custom_list.clear();
@@ -41,16 +40,16 @@ absl::Status LoadConfig() {
 
     Document& doc = *read_path;
     if (auto itor = doc.FindMember("global"); itor != doc.MemberEnd() && itor->value.IsObject()) {
-        if (auto itor2 = itor->value.FindMember("delay"); itor2 != doc.MemberEnd() && itor2->value.IsInt()) {
+        if (auto itor2 = itor->value.FindMember("delay"); itor->value != doc.MemberEnd() && itor2->value.IsInt()) {
             global_cfg.delay_ = itor2->value.GetInt();
         }
-        if (auto itor2 = itor->value.FindMember("fps"); itor2 != doc.MemberEnd() && itor2->value.IsInt()) {
+        if (auto itor2 = itor->value.FindMember("fps"); itor->value != doc.MemberEnd() && itor2->value.IsInt()) {
             global_cfg.fps_ = itor2->value.GetInt();
         }
-        if (auto itor2 = itor->value.FindMember("mod_opcode"); itor2 != doc.MemberEnd() && itor2->value.IsBool()) {
+        if (auto itor2 = itor->value.FindMember("mod_opcode"); itor->value != doc.MemberEnd() && itor2->value.IsBool()) {
             global_cfg.mod_opcode_ = itor2->value.GetBool();
         }
-        if (auto itor2 = itor->value.FindMember("scale"); itor2 != doc.MemberEnd() && itor2->value.IsFloat()) {
+        if (auto itor2 = itor->value.FindMember("scale"); itor->value != doc.MemberEnd() && itor2->value.IsFloat()) {
             global_cfg.scale_ = itor2->value.GetFloat();
         }
     }

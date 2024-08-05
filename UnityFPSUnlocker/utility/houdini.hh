@@ -6,8 +6,8 @@
 #include <absl/status/status.h>
 #include <absl/status/statusor.h>
 
+#include "native_bridge.h"
 #include "singleton.hh"
-#include "utility/singleton.hh"
 
 class Houdini : public Singleton<Houdini> {
     friend class Singleton;
@@ -20,7 +20,7 @@ public:
 private:
     Houdini();
     int houdini_ver_ = 0;
-    void* houdini_itf_ = nullptr;
+    android::NativeBridgeCallbacks* houdini_itf_ = nullptr;
 };
 
 #endif // architecture defined

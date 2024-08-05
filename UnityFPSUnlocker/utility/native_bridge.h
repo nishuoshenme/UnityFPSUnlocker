@@ -35,7 +35,7 @@ namespace android {
     typedef bool (*NativeBridgeSignalHandlerFn)(int, siginfo_t*, void*); // NOLINT
 
     // Native bridge interfaces to runtime.
-    struct NativeBridgeCallbacksMaster {
+    struct NativeBridgeCallbacks {
         // Version number of the interface.
         uint32_t version;
 

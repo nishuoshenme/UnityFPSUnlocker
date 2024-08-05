@@ -150,8 +150,8 @@ namespace Utility {
             ChangeMemPermission(ptr, 4);
             ptr[0] = 0x70;
             ptr[1] = 0x47;
-            ptr[2] = 0xAF;
-            ptr[3] = 0xF3;
+            ptr[2] = 0x00;
+            ptr[3] = 0xBF;
         }
         else {
             ptr[0] = 0x1E;
