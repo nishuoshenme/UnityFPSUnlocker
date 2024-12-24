@@ -11,6 +11,12 @@ struct Resolution {
     int32_t m_RefreshRate = 0;
 };
 
+class ScreenManager {
+public:
+    virtual ~ScreenManager() {}
+    virtual void RequestResolution(int, int, int, void*);
+};
+
 class Unity : public Singleton<Unity> {
 public:
     void Init(void*);
@@ -32,6 +38,8 @@ private:
     SetResolution_t SetResolution_Internal = nullptr;
     get_currentResolution_t get_currentResolution = nullptr;
     GetSystemExtImpl_t GetSystemExtImpl_Internal = nullptr;
+
+    ScreenManager* screen_manager_ = nullptr;
 };
 
 #endif // unity_engine.hh

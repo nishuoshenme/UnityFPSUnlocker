@@ -21,6 +21,21 @@ void Unity::Init(void* handle) {
     if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution")) == nullptr) {
         if ((SetResolution_Internal = (SetResolution_t)il2cpp_resolve_icall("UnityEngine.Screen::SetResolution_Injected")) == nullptr) {
             ERROR("SetResolution not found");
+
+            if (auto get_height_ptr = il2cpp_resolve_icall("UnityEngine.Screen::get_height")) {
+                auto ptr = reinterpret_cast<uint32_t*>(get_height_ptr);
+                auto opcode = ptr[1];
+                if ((opcode & 0xFC000000) == 0x94000000) {
+                    auto offset = (int32_t)(opcode << 8) >> 6;
+                    auto addr = reinterpret_cast<intptr_t>(get_height_ptr) + 4 + offset;
+                    auto GetScreenManager = reinterpret_cast<void* (*)(void)>(addr);
+                    screen_manager_ = reinterpret_cast<ScreenManager*>(GetScreenManager());
+                }
+            }
+
+            if (screen_manager_ == nullptr) {
+                ERROR("ScreenManager not found");
+            }
         }
     }
 
@@ -47,13 +62,20 @@ Resolution Unity::GetResolution() {
 
 void Unity::SetResolution(float scale) {
     Resolution resolution = GetSystemExtImpl();
-    if (SetResolution_Internal && scale > 0 && resolution.m_Width > 0) {
+    if (scale > 0 && resolution.m_Width > 0) {
         auto target_width = static_cast<int32_t>(resolution.m_Width * scale);
         auto target_height = static_cast<int32_t>(resolution.m_Height * scale);
         int preferred_refresh_rate = 0;
-        LOG("Set resolution: %d x %d", target_width, target_height);
-        SetResolution_Internal(target_width, target_height, 1, &preferred_refresh_rate);
-        Utility::NopFunc(reinterpret_cast<unsigned char*>(SetResolution_Internal));
+
+        if (SetResolution_Internal) {
+            LOG("Set resolution: %d x %d", target_width, target_height);
+            SetResolution_Internal(target_width, target_height, 1, &preferred_refresh_rate);
+            Utility::NopFunc(reinterpret_cast<unsigned char*>(SetResolution_Internal));
+        }
+        else if (screen_manager_) {
+            LOG("Set resolution: %d x %d", target_width, target_height);
+            screen_manager_->RequestResolution(target_width, target_height, 1, &preferred_refresh_rate);
+        }
     }
 }
 
