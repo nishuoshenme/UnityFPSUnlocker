@@ -89,7 +89,13 @@ void Unity::SetFrameRate(int framerate, bool mod_opcode) {
         }
 
         if (mod_opcode) {
-            Utility::NopFunc(reinterpret_cast<unsigned char*>(set_targetFrameRate));
+            auto ptr = reinterpret_cast<uint32_t*>(set_targetFrameRate);
+            auto opcode = ptr[0];
+            if ((opcode & 0xFC000000) == 0x14000000) {
+                auto offset = (int32_t)(opcode << 8) >> 6;
+                ptr = reinterpret_cast<uint32_t*>(reinterpret_cast<intptr_t>(set_targetFrameRate) + offset);
+            }
+            Utility::NopFunc(reinterpret_cast<unsigned char*>(ptr));
         }
     }
 }
